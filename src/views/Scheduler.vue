@@ -2,7 +2,6 @@
   <MeetingDetails
     @click="selectedTimeslot = !selectedTimeslot"
   ></MeetingDetails>
-  <div class="section-spacer"></div>
   <ScheduleContainer v-if="!selectedTimeslot"></ScheduleContainer>
   <ParticipantDetailsContainer
     v-if="selectedTimeslot"

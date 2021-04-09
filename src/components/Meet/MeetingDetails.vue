@@ -27,6 +27,7 @@ export default {
   margin-left: 0;
   display: flex;
   flex-direction: column;
+  margin-bottom: 2rem;
 }
 
 .section-title {
