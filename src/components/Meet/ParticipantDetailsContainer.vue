@@ -20,21 +20,30 @@
       inputType="tel"
       inputPattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
     ></FormInput>
+    <div>
+      <PrimaryCta
+        class="cta"
+        buttonText="Schedule Meeting"
+        :loadingState="false"
+      ></PrimaryCta>
+    </div>
   </div>
 </template>
 
 <script>
 import FormInput from '../Reusible/FormInput';
+import PrimaryCta from '../Reusible/PrimaryCta';
 
 export default {
   name: 'Participant Details',
-  components: { FormInput },
+  components: { FormInput, PrimaryCta },
 };
 </script>
 
 <style scoped>
 .participant-details {
   margin: 0 var(--margin-sides);
+  margin-bottom: 5rem;
 }
 
 h2 {
@@ -43,5 +52,9 @@ h2 {
 
 .input-section {
   margin-bottom: 0.5rem;
+}
+
+.cta {
+  margin-top: 2rem;
 }
 </style>
