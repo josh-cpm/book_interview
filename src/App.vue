@@ -27,12 +27,14 @@ export default {
   /* @import url(`https://fonts.googleapis.com/css2?family=Roboto&display=swap`); */
 
   --color-text-main: black;
-  --color-text-gray: #b0adad;
+  --color-text-gray: #716f6f;
   --color-primary: #7258f6;
   --color-primary-bg: #e3deff;
   --color-gray-bg: #f1efef;
   --font-family-primary: 'Roboto', sans-serif;
   --font-size-p: 1rem;
+  --font-size-small: 0.75rem;
+  /* --font-size-tiny: 0.6rem; */
   --margin-sides: 1rem;
   font-size: 20px;
 }
