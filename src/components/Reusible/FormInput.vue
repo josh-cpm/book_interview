@@ -11,6 +11,7 @@
         :class="{ 'purple-error-border': errorState }"
         :placeholder="placeholder || `Input`"
         :input-type="inputType"
+        :pattern="inputPattern"
       />
       <img v-if="errorState" class="error-icon" src="/error_icon.svg" />
     </div>
@@ -33,6 +34,8 @@ export default {
     placeholder: String,
     inputLabel: String,
     inputType: String,
+    inputPattern: String,
+    inputRequired: Boolean,
     trailingComment: String,
     errorState: Boolean,
     errorMessage: String,

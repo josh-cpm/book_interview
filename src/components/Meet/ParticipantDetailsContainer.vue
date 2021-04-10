@@ -10,12 +10,15 @@
       class="input-section"
       placeholder="Email"
       inputLabel="Email"
+      inputType="email"
     ></FormInput>
     <FormInput
       class="input-section"
       placeholder="000-000-0000"
       inputLabel="Phone number"
       trailingComment="We'll confirm your meeting via text."
+      inputType="tel"
+      inputPattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
     ></FormInput>
   </div>
 </template>
