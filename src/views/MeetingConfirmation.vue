@@ -5,6 +5,8 @@
       <p>
         You’ll meet with the Lasting team for 30 minutes at 9:30am Eastern time
         on March 13.
+        <br />
+        {{ meetingTime }}
       </p>
     </div>
     <div class="section">
@@ -64,14 +66,26 @@ export default {
       meetingDetails: {},
     };
   },
+  computed: {
+    meetingTime() {
+      let startTime = new Date(this.meetingDetails.date);
+      startTime.setHours('2');
+      console.log(startTime);
+      return startTime;
+    },
+  },
   methods: {
     async getDetails() {
-      const { interviewUuid } = this.$route.params;
-      const url = `http://localhost:3000/interview/meeting/${interviewUuid}`;
-      const response = await fetch(url);
-      const interviewData = await response.json();
-      console.log(interviewData);
-      this.meetingDetails = interviewData;
+      try {
+        const { interviewUuid } = this.$route.params;
+        const url = `http://localhost:3000/interview/meeting/${interviewUuid}`;
+        const response = await fetch(url);
+        const interviewData = await response.json();
+        console.log(interviewData);
+        this.meetingDetails = interviewData;
+      } catch (e) {
+        console.log(e);
+      }
     },
   },
   created() {
