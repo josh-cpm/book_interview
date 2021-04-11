@@ -29,7 +29,7 @@ export default {
   },
   methods: {
     meetingScheduled() {
-      this.$router.push(this.$router.location + '/confirm');
+      this.$router.push('/interview/meet/b8fa6564-0a04-5eee-bd0b-fc6509add3c3');
     },
   },
 };

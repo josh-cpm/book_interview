@@ -10,7 +10,7 @@ const routes = [
     component: Scheduler,
   },
   {
-    path: '/interview/schedule/:userUuid/confirm',
+    path: '/interview/meet/:interviewUuid',
     name: 'Confirmation',
     component: MeetingConfirmation,
   },

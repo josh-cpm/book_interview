@@ -14,7 +14,7 @@
       <PrimaryCta
         buttonText="Join Meeting"
         :loadingState="false"
-        :inactiveState="`true`"
+        :inactiveState="true"
       ></PrimaryCta>
     </div>
     <div class="section">
@@ -61,12 +61,21 @@ export default {
         tel: '919-697-8093',
       },
       meetingDateTime: new Date('2021-04-12 09:00:00-4:00'),
+      meetingDetails: {},
     };
   },
   methods: {
-    getDetails() {
-      //fetch details
+    async getDetails() {
+      const { interviewUuid } = this.$route.params;
+      const url = `http://localhost:3000/interview/meeting/${interviewUuid}`;
+      const response = await fetch(url);
+      const interviewData = await response.json();
+      console.log(interviewData);
+      this.meetingDetails = interviewData;
     },
+  },
+  created() {
+    this.getDetails();
   },
 };
 </script>
