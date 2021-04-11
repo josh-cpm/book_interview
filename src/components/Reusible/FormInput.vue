@@ -12,6 +12,9 @@
         :placeholder="placeholder || `Input`"
         :input-type="inputType"
         :pattern="inputPattern"
+        ref="input"
+        @blur="validateInput"
+        @input="validateInput"
       />
       <img v-if="errorState" class="error-icon" src="/error_icon.svg" />
     </div>
@@ -30,6 +33,13 @@
 <script>
 export default {
   name: 'TextInput',
+  data() {
+    return {
+      childErrorState: false,
+      childErrorMessage: '',
+    };
+  },
+  emits: ['removeFormError', 'addFormError'],
   props: {
     placeholder: String,
     inputLabel: String,
@@ -37,8 +47,34 @@ export default {
     inputPattern: String,
     inputRequired: Boolean,
     trailingComment: String,
-    errorState: Boolean,
-    errorMessage: String,
+    parentErrorState: Boolean,
+    parentErrorMessage: String,
+    validationRules: Array,
+  },
+  computed: {
+    errorState() {
+      return this.parentErrorState || this.childErrorState;
+    },
+    errorMessage() {
+      return this.childErrorMessage || this.parentErrorMessage;
+    },
+  },
+
+  methods: {
+    validateInput() {
+      const formInput = this.$refs.input.value;
+      if (this.validationRules.includes('required')) {
+        if (formInput.length === 0 || typeof formInput === undefined) {
+          this.childErrorState = true;
+          this.childErrorMessage = 'This field is required';
+          this.$emit('addFormError');
+        } else {
+          this.childErrorState = false;
+          this.childErrorMessage = '';
+          this.$emit('removeFormError');
+        }
+      }
+    },
   },
 };
 </script>
@@ -73,10 +109,7 @@ input {
   flex-grow: 1;
 }
 
-/* input:hover, */
-input:focus
-/* input:active  */
- {
+input:focus {
   border: 1px solid var(--color-primary);
   box-shadow: none;
 }

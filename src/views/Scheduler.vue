@@ -5,6 +5,7 @@
   <ScheduleContainer v-if="!selectedTimeslot"></ScheduleContainer>
   <ParticipantDetailsContainer
     v-if="selectedTimeslot"
+    @meetingScheduled="meetingScheduled"
   ></ParticipantDetailsContainer>
   <router-view />
 </template>
@@ -25,6 +26,11 @@ export default {
     return {
       selectedTimeslot: true,
     };
+  },
+  methods: {
+    meetingScheduled() {
+      this.$router.push(this.$router.location + '/confirm');
+    },
   },
 };
 </script>
