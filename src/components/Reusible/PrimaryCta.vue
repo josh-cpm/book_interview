@@ -1,5 +1,5 @@
 <template>
-  <button>
+  <button :class="{ inactive: inactiveState }">
     <span v-if="loadingState"
       ><img class="loading-state-icon" src="/loading_cta_icon.svg"
     /></span>
@@ -13,6 +13,7 @@ export default {
   props: {
     buttonText: String,
     loadingState: Boolean,
+    inactiveState: Boolean,
   },
 };
 </script>
@@ -41,6 +42,11 @@ button:active {
 .loading-state-icon {
   height: 1em;
   animation: spin 1.5s linear infinite;
+}
+
+.inactive {
+  background-color: var(--color-gray-bg);
+  color: var(--color-text-gray);
 }
 
 @keyframes spin {

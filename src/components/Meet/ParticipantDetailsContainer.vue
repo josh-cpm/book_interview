@@ -35,6 +35,7 @@
         class="cta"
         buttonText="Schedule Meeting"
         :loadingState="false"
+        :inactiveState="errorState"
         @click="scheduleMeeting"
       ></PrimaryCta>
     </div>
@@ -67,7 +68,11 @@ export default {
   },
   methods: {
     scheduleMeeting() {
-      this.$emit('meetingScheduled');
+      if (this.errorState) {
+        return;
+      } else {
+        this.$emit('meetingScheduled');
+      }
     },
     addErrorStatus(fieldName) {
       this.inputErrors[fieldName] = true;
