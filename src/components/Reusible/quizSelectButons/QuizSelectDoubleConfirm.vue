@@ -14,6 +14,7 @@
       <button
         v-if="confirmPromptIsActive"
         class="button-container__content--confirm-action"
+        @click="emitConfirm"
       >
         {{ confirmButtonValue || 'Confirm' }}
       </button>
@@ -25,6 +26,7 @@
 export default {
   name: 'QuizSelectDefault',
   props: ['buttonValue', 'confirmButtonValue'],
+  emits: ['confirm'],
   data() {
     return {
       confirmPromptIsActive: false,
@@ -36,6 +38,9 @@ export default {
     },
     hideConfirm() {
       this.confirmPromptIsActive = false;
+    },
+    emitConfirm() {
+      this.$emit('confirm', { buttonValue: this.buttonValue });
     },
   },
 };

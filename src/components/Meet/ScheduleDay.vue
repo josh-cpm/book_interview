@@ -2,7 +2,7 @@
   <div class="section-title">{{ day.date }}</div>
   <div class="timeslots">
     <div class="timeslot-container" v-for="time in day.times" :key="time">
-      <Timeslot :buttonValue="time"></Timeslot>
+      <Timeslot :buttonValue="time" @confirm="selectTime"></Timeslot>
     </div>
   </div>
 </template>
@@ -13,6 +13,11 @@ export default {
   name: 'DayScheduler',
   props: ['day'],
   components: { Timeslot: QuizSelectDoubleConfirm },
+  methods: {
+    selectTime(e) {
+      console.log(e);
+    },
+  },
 };
 </script>
 
