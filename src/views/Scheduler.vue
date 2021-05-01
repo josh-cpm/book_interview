@@ -14,6 +14,7 @@
 import MeetingDetails from '../components/Meet/MeetingDetails';
 import ScheduleContainer from '../components/Meet/ScheduleContainer';
 import ParticipantDetailsContainer from '../components/Meet/ParticipantDetailsContainer';
+import store from '../modules/store';
 
 export default {
   name: 'SchedulerView',
@@ -24,7 +25,7 @@ export default {
   },
   data() {
     return {
-      selectedTimeslot: true,
+      selectedTimeslot: store.selectedTimeslot,
     };
   },
   methods: {

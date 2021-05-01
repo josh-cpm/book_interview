@@ -2,7 +2,9 @@
   <div class="nav-container">
     <div class="company-logo">
       <div v-if="logoUrl"><img :scr="logoUrl" /></div>
-      <div v-else class="logo-placeholder">Your Logo</div>
+      <div v-else class="logo-placeholder">
+        Your Logo
+      </div>
     </div>
   </div>
 </template>
