@@ -57,7 +57,7 @@ export default {
       if (response.status === 200) {
         console.log(parsedResponse);
         store.meetingDetails = parsedResponse.meetingDetails;
-        store.meetingOpenings = parsedResponse.openings;
+        store.meetingOpenings = parsedResponse.meetingOpenings;
         store.screener = parsedResponse.screener;
       }
     },
