@@ -5,7 +5,7 @@ import MeetingConfirmation from '../views/MeetingConfirmation';
 
 const routes = [
   {
-    path: '/interview/schedule/:userUuid',
+    path: '/interview/schedule/:screenerUuid',
     name: 'Scheduler',
     component: Scheduler,
   },
