@@ -55,11 +55,10 @@ export default {
       );
       const parsedResponse = await response.json();
       if (response.status === 200) {
-        // console.log(parsedResponse);
+        console.log(parsedResponse);
         store.meetingDetails = parsedResponse.meetingDetails;
         store.meetingOpenings = parsedResponse.openings;
         store.screener = parsedResponse.screener;
-        console.log(store);
       }
     },
   },
