@@ -1,6 +1,8 @@
 import { reactive } from 'vue';
 
 export default reactive({
-  userData: {},
   selectedTimeslot: '',
+  meetingDetails: {},
+  meetingOpenings: {},
+  screener: {},
 });

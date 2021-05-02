@@ -4,7 +4,9 @@
       Meeting Details
     </div>
     <ul>
-      <li v-for="item in details" :key="item.id">{{ item }}</li>
+      <li>{{ meetingDetails.type }}</li>
+      <li>{{ meetingDetails.duration }} minutes</li>
+      <li>${{ meetingDetails.incentive }} incentive</li>
     </ul>
   </div>
 </template>
@@ -12,11 +14,7 @@
 <script>
 export default {
   name: 'Meeting Details',
-  data() {
-    return {
-      details: ['Zoom video call', '30 minutes', '$25 incentive'],
-    };
-  },
+  props: ['meetingDetails'],
 };
 </script>
 

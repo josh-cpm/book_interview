@@ -1,8 +1,12 @@
 <template>
   <MeetingDetails
     @click="selectedTimeslot = !selectedTimeslot"
+    :meetingDetails="meetingDetails"
   ></MeetingDetails>
-  <ScheduleContainer v-if="!selectedTimeslot"></ScheduleContainer>
+  <ScheduleContainer
+    v-if="!selectedTimeslot"
+    :meetingOpenings="meetingOpenings"
+  ></ScheduleContainer>
   <ParticipantDetailsContainer
     v-if="selectedTimeslot"
     @meetingScheduled="meetingScheduled"
@@ -28,6 +32,9 @@ export default {
   data() {
     return {
       selectedTimeslot: store.selectedTimeslot,
+      meetingDetails: store.meetingDetails,
+      meetingOpenings: store.meetingOpenings,
+      screener: store.screener,
     };
   },
   methods: {
@@ -39,9 +46,12 @@ export default {
       const response = await fetch(
         `${base_url}/meet/screeners/${screenerUuid}`
       );
-      const openings = await response.json();
+      const parsedResponse = await response.json();
       if (response.status === 200) {
-        console.log(openings);
+        console.log(parsedResponse);
+        store.meetingDetails = parsedResponse.meetingDetails;
+        store.meetingOpenings = parsedResponse.openings;
+        store.screener = parsedResponse.screener;
       }
     },
   },
