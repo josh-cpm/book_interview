@@ -29,14 +29,21 @@ export default {
     ScheduleContainer,
     ParticipantDetailsContainer,
   },
-  data() {
-    return {
-      selectedTimeslot: store.selectedTimeslot,
-      meetingDetails: store.meetingDetails,
-      meetingOpenings: store.meetingOpenings,
-      screener: store.screener,
-    };
+  computed: {
+    meetingDetails() {
+      return store.meetingDetails;
+    },
+    meetingOpenings() {
+      return store.meetingOpenings;
+    },
+    screener() {
+      return store.screener;
+    },
+    selectedTimeslot() {
+      return store.selectedTimeslot;
+    },
   },
+
   methods: {
     meetingScheduled() {
       this.$router.push('/interview/meet/b8fa6564-0a04-5eee-bd0b-fc6509add3c3');
@@ -48,15 +55,17 @@ export default {
       );
       const parsedResponse = await response.json();
       if (response.status === 200) {
-        console.log(parsedResponse);
+        // console.log(parsedResponse);
         store.meetingDetails = parsedResponse.meetingDetails;
         store.meetingOpenings = parsedResponse.openings;
         store.screener = parsedResponse.screener;
+        console.log(store);
       }
     },
   },
-  mounted() {
+  created() {
     this.fetchOpenings();
+    //
   },
 };
 </script>
