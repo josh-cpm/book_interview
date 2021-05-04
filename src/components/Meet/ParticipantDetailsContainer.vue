@@ -4,10 +4,11 @@
     <FormInput
       class="input-section"
       placeholder="Name"
-      inputLabel="First Name"
+      inputLabel="Full Name"
       :validationRules="['required']"
       @add-form-error="addErrorStatus('name')"
       @remove-form-error="removeErrorStatus('name')"
+      @input="updateName"
     ></FormInput>
     <FormInput
       class="input-section"
@@ -17,6 +18,7 @@
       :validationRules="['required']"
       @add-form-error="addErrorStatus('email')"
       @remove-form-error="removeErrorStatus('email')"
+      @input="updateEmail"
     ></FormInput>
     <FormInput
       class="input-section"
@@ -28,6 +30,7 @@
       :validationRules="['required']"
       @add-form-error="addErrorStatus('tel')"
       @remove-form-error="removeErrorStatus('tel')"
+      @input="updatePhone"
     ></FormInput>
     <div>
       <div v-if="errorState">Please correct errors and try again.</div>
@@ -45,6 +48,7 @@
 <script>
 import FormInput from '../Reusible/FormInput';
 import PrimaryCta from '../Reusible/PrimaryCta';
+import store from '@/modules/store';
 
 export default {
   name: 'Participant Details',
@@ -67,6 +71,18 @@ export default {
     },
   },
   methods: {
+    updateName(e) {
+      console.log(e.target.value);
+      store.participantDetails.name = e.target.value;
+    },
+    updateEmail(e) {
+      console.log(e.target.value);
+      store.participantDetails.email = e.target.value;
+    },
+    updatePhone(e) {
+      console.log(e.target.value);
+      store.participantDetails.phone = e.target.value;
+    },
     scheduleMeeting() {
       if (this.errorState) {
         return;

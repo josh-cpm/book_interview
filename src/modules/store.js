@@ -5,4 +5,5 @@ export default reactive({
   meetingDetails: {},
   meetingOpenings: {},
   screener: {},
+  participantDetails: {},
 });

@@ -14,7 +14,10 @@
         :pattern="inputPattern"
         ref="input"
         @blur="validateInput"
-        @input="validateInput"
+        @input="
+          validateInput;
+          this.$emit('input');
+        "
       />
       <img v-if="errorState" class="error-icon" src="/error_icon.svg" />
     </div>
