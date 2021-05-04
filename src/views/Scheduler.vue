@@ -3,10 +3,7 @@
     @click="selectedTimeslot = !selectedTimeslot"
     :meetingDetails="meetingDetails"
   ></MeetingDetails>
-  <ScheduleContainer
-    v-if="!selectedTimeslot"
-    :meetingOpenings="meetingOpenings"
-  ></ScheduleContainer>
+  <ScheduleContainer v-if="!selectedTimeslot"></ScheduleContainer>
   <ParticipantDetailsContainer
     v-if="selectedTimeslot"
     @meetingScheduled="meetingScheduled"
@@ -33,9 +30,6 @@ export default {
     meetingDetails() {
       return store.meetingDetails;
     },
-    meetingOpenings() {
-      return store.meetingOpenings;
-    },
     screener() {
       return store.screener;
     },
@@ -57,7 +51,7 @@ export default {
       if (response.status === 200) {
         console.log(parsedResponse);
         store.meetingDetails = parsedResponse.meetingDetails;
-        store.meetingOpenings = parsedResponse.meetingOpenings;
+        store.flatMeetingOpenings = parsedResponse.flatMeetingOpenings;
         store.screener = parsedResponse.screener;
       }
     },

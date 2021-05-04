@@ -5,33 +5,80 @@
       class="ScheduleDay"
       v-for="day in days"
       :day="day"
-      :key="day.date"
+      :key="day"
     ></ScheduleDay>
   </div>
 </template>
 
 <script>
 import ScheduleDay from './ScheduleDay';
+import { format, parseJSON, isToday, isTomorrow, isBefore } from 'date-fns';
+import store from '@/modules/store.js';
 
 export default {
   name: 'Scheduler',
   components: {
     ScheduleDay,
   },
-  data() {
-    return {
-      days: [
-        {
-          date: 'March 13 (today)',
-          times: ['9:00am', '9:30am', '10:00am'],
-        },
-        {
-          date: 'March 14 (tomorrow)',
-          times: ['9:00am', '9:30am', '10:00am'],
-        },
-      ],
-      timeSlots: [],
-    };
+  computed: {
+    days() {
+      let openings = store.flatMeetingOpenings;
+      if (!openings) {
+        return [];
+      }
+
+      openings.forEach((el) => (el.time = parseJSON(el.time)));
+      openings.forEach((el) => (el.displayDate = this.formatDay(el.time)));
+      openings.forEach((el) => (el.displayTime = this.formatTime(el.time)));
+      openings.sort(this.sortByDateAsc);
+
+      let days = [];
+
+      openings.forEach((opening) => {
+        const index = days.findIndex(
+          (day) => day.displayDate === opening.displayDate
+        );
+
+        if (index >= 0) {
+          days[index].times.push(opening);
+        } else {
+          days.push({
+            date: opening.time,
+            displayDate: opening.displayDate,
+            times: [opening],
+          });
+        }
+      });
+      return days;
+    },
+  },
+  methods: {
+    sortByDateAsc(firstEl, secondEl) {
+      firstEl = firstEl.time;
+      secondEl = secondEl.time;
+      if (isBefore(firstEl, secondEl)) {
+        return -1;
+      } else if (isBefore(secondEl, firstEl)) {
+        return 1;
+      } else {
+        return 0;
+      }
+    },
+    formatTime(date) {
+      return format(date, 'p');
+    },
+    formatDay(date) {
+      return format(date, 'MMMM d') + this.appendTodayorTomorrow(date);
+    },
+    appendTodayorTomorrow(date) {
+      if (isToday(date)) {
+        return ' (today)';
+      } else if (isTomorrow(date)) {
+        return ' (tomorrow)';
+      } else {
+        return '';
+      }
+    },
   },
 };
 </script>

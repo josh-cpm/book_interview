@@ -1,8 +1,11 @@
 <template>
-  <div class="section-title">{{ day.date }}</div>
+  <div class="section-title">{{ day.displayDate }}</div>
   <div class="timeslots">
     <div class="timeslot-container" v-for="time in day.times" :key="time">
-      <Timeslot :buttonValue="time" @confirm="selectTime"></Timeslot>
+      <Timeslot
+        :buttonValue="time.displayTime"
+        @confirm="selectTime"
+      ></Timeslot>
     </div>
   </div>
 </template>
