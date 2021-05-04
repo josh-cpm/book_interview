@@ -1,8 +1,5 @@
 <template>
-  <MeetingDetails
-    @click="selectedTimeslot = !selectedTimeslot"
-    :meetingDetails="meetingDetails"
-  ></MeetingDetails>
+  <MeetingDetails></MeetingDetails>
   <ScheduleContainer v-if="!selectedTimeslot"></ScheduleContainer>
   <ParticipantDetailsContainer
     v-if="selectedTimeslot"
@@ -27,9 +24,6 @@ export default {
     ParticipantDetailsContainer,
   },
   computed: {
-    meetingDetails() {
-      return store.meetingDetails;
-    },
     screener() {
       return store.screener;
     },

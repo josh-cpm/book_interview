@@ -7,14 +7,39 @@
       <li>{{ meetingDetails.type }}</li>
       <li>{{ meetingDetails.duration }} minutes</li>
       <li>${{ meetingDetails.incentive }} incentive</li>
+      <li v-if="selectedTimeslot">
+        {{ meetingDetails.displayDate }} @ {{ meetingDetails.displayTime }}
+      </li>
+      <div
+        class="inline-link"
+        v-if="selectedTimeslot"
+        @click="unSelectTimeSlot"
+      >
+        Choose another time
+      </div>
     </ul>
   </div>
 </template>
 
 <script>
+import store from '@/modules/store';
+
 export default {
   name: 'Meeting Details',
-  props: ['meetingDetails'],
+  // props: ['meetingDetails'],
+  computed: {
+    meetingDetails() {
+      return store.meetingDetails;
+    },
+    selectedTimeslot() {
+      return store.selectedTimeslot;
+    },
+  },
+  methods: {
+    unSelectTimeSlot() {
+      store.selectedTimeslot = '';
+    },
+  },
 };
 </script>
 
@@ -40,5 +65,15 @@ ul {
 
 li {
   margin-top: 0.6rem;
+}
+
+.inline-link {
+  color: var(--color-primary);
+  font-weight: bold;
+  margin-top: 0.5rem;
+}
+
+.inline-link:hover {
+  cursor: pointer;
 }
 </style>
