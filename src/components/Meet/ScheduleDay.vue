@@ -4,6 +4,7 @@
     <div class="timeslot-container" v-for="time in day.times" :key="time">
       <Timeslot
         :buttonValue="time.displayTime"
+        :buttonData="time"
         @confirm="selectTime"
       ></Timeslot>
     </div>
@@ -12,13 +13,17 @@
 
 <script>
 import QuizSelectDoubleConfirm from '../Reusible/quizSelectButons/QuizSelectDoubleConfirm';
+import store from '@/modules/store';
+
 export default {
   name: 'DayScheduler',
   props: ['day'],
   components: { Timeslot: QuizSelectDoubleConfirm },
   methods: {
     selectTime(e) {
-      console.log(e);
+      store.selectedTimeslot = e.buttonValue.id;
+      store.meetingDetails.displayDate = e.buttonValue.displayDate;
+      store.meetingDetails.displayTime = e.buttonValue.displayTime;
     },
   },
 };

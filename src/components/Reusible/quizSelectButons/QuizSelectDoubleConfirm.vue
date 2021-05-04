@@ -25,7 +25,7 @@
 <script>
 export default {
   name: 'QuizSelectDefault',
-  props: ['buttonValue', 'confirmButtonValue'],
+  props: ['buttonValue', 'confirmButtonValue', 'buttonData'],
   emits: ['confirm'],
   data() {
     return {
@@ -40,7 +40,9 @@ export default {
       this.confirmPromptIsActive = false;
     },
     emitConfirm() {
-      this.$emit('confirm', { buttonValue: this.buttonValue });
+      this.$emit('confirm', {
+        buttonValue: this.buttonData || this.buttonValue,
+      });
     },
   },
 };

@@ -5,7 +5,7 @@
       class="ScheduleDay"
       v-for="day in days"
       :day="day"
-      :key="day"
+      :key="day.date"
     ></ScheduleDay>
   </div>
 </template>
@@ -49,6 +49,7 @@ export default {
           });
         }
       });
+      console.log(days);
       return days;
     },
   },
