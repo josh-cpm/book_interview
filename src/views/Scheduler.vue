@@ -13,8 +13,7 @@ import MeetingDetails from '../components/Meet/MeetingDetails';
 import ScheduleContainer from '../components/Meet/ScheduleContainer';
 import ParticipantDetailsContainer from '../components/Meet/ParticipantDetailsContainer';
 import store from '../modules/store';
-
-const base_url = 'https://ipbf5lnnbl.execute-api.us-east-1.amazonaws.com/dev/';
+import { postMeeting } from '@/modules/api.js';
 
 export default {
   name: 'SchedulerView',
@@ -24,24 +23,33 @@ export default {
     ParticipantDetailsContainer,
   },
   computed: {
-    screener() {
-      return store.screener;
-    },
     selectedTimeslot() {
       return store.selectedTimeslot;
     },
   },
-
   methods: {
-    meetingScheduled() {
-      this.$router.push('/interview/meet/b8fa6564-0a04-5eee-bd0b-fc6509add3c3');
+    async meetingScheduled() {
+      // const meetingUuid = store.selectedTimeslot;
+      const response = await postMeeting(
+        store.selectedTimeslot,
+        store.participantDetails
+      );
+      console.log(response);
+      if (response.status === 200) {
+        this.$router.push(
+          '/interview/meet/b8fa6564-0a04-5eee-bd0b-fc6509add3c3'
+        );
+      }
     },
     async fetchOpenings() {
+      const base_url =
+        'https://ipbf5lnnbl.execute-api.us-east-1.amazonaws.com/dev/';
+
       const screenerUuid = this.$route.params.screenerUuid;
       const response = await fetch(
         `${base_url}/meet/screeners/${screenerUuid}`
       );
-      const parsedResponse = await response.json();
+      let parsedResponse = await response.json();
       if (response.status === 200) {
         console.log(parsedResponse);
         store.meetingDetails = parsedResponse.meetingDetails;
