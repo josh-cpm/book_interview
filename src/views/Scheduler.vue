@@ -13,7 +13,7 @@ import MeetingDetails from '../components/Meet/MeetingDetails';
 import ScheduleContainer from '../components/Meet/ScheduleContainer';
 import ParticipantDetailsContainer from '../components/Meet/ParticipantDetailsContainer';
 import store from '../modules/store';
-import { postMeeting } from '@/modules/api.js';
+import { postMeeting, getScreener } from '@/modules/api.js';
 
 export default {
   name: 'SchedulerView',
@@ -41,25 +41,19 @@ export default {
         );
       }
     },
-    async fetchOpenings() {
-      const base_url =
-        'https://ipbf5lnnbl.execute-api.us-east-1.amazonaws.com/dev/';
-
+    async getOpenings() {
       const screenerUuid = this.$route.params.screenerUuid;
-      const response = await fetch(
-        `${base_url}/meet/screeners/${screenerUuid}`
-      );
-      let parsedResponse = await response.json();
+      const response = await getScreener(screenerUuid);
       if (response.status === 200) {
-        console.log(parsedResponse);
-        store.meetingDetails = parsedResponse.meetingDetails;
-        store.flatMeetingOpenings = parsedResponse.flatMeetingOpenings;
-        store.screener = parsedResponse.screener;
+        console.log(response.data);
+        store.meetingDetails = response.data.meetingDetails;
+        store.flatMeetingOpenings = response.data.flatMeetingOpenings;
+        store.screener = response.data.screener;
       }
     },
   },
   created() {
-    this.fetchOpenings();
+    this.getOpenings();
     //
   },
 };

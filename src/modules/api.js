@@ -16,3 +16,14 @@ export async function postMeeting(meetingUuid, participantDetails) {
     console.log(e);
   }
 }
+
+export async function getScreener(screenerUuid) {
+  try {
+    const response = await axios.get(
+      `${base_url}/meet/screeners/${screenerUuid}`
+    );
+    return response;
+  } catch (e) {
+    console.log(e);
+  }
+}
