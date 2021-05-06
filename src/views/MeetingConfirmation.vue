@@ -1,47 +1,62 @@
 <template>
-    <div class="section">
-      <h2>Meeting Scheduled!</h2>
-      <p>
-        You’ll meet with the Lasting team for
-        {{ meetingDetails.duration }} minutes at {{ meetingTime }} on
-        {{ meetingDate }}.
-        <br />
-      </p>
+  <div class="meeting-page-container">
+    <div v-if="meetingCanceled">
+      <MeetingCanceled></MeetingCanceled>
     </div>
-    <div class="section">
-      <div class="section-title">Starts {{ meetingCountdown }}</div>
-      <a :href="joinCtaIsInactive ? '' : meetingDetails.linkToJoin">
+    <div v-if="!meetingCanceled && !meetingDetails">
+      <MeetingLoading></MeetingLoading>
+      {{ meetingDetails }}
+    </div>
+    <div
+      class="meeting-page__meeting-details"
+      v-if="meetingDetails && !meetingCanceled"
+    >
+      <div class="section">
+        <h2>Meeting Scheduled!</h2>
+        <p>
+          You’ll meet with the Lasting team for
+          {{ meetingDetails.duration }} minutes at {{ meetingTime }} on
+          {{ meetingDate }}.
+          <br />
+        </p>
+      </div>
+      <div class="section">
+        <div class="section-title">Starts {{ meetingCountdown }}</div>
+        <a :href="joinCtaIsInactive ? '' : meetingDetails.linkToJoin">
+          <PrimaryCta
+            buttonText="Join Meeting"
+            :inactiveState="joinCtaIsInactive"
+          ></PrimaryCta>
+        </a>
+      </div>
+      <div class="section">
+        <div class="section-title">
+          Can't attend?
+        </div>
         <PrimaryCta
-          buttonText="Join Meeting"
-          :inactiveState="joinCtaIsInactive"
+          class="cta"
+          buttonText="Cancel Meeting"
+          :loadingState="false"
+          @click="cancelMeetingCall"
         ></PrimaryCta>
-      </a>
-    </div>
-    <div class="section">
-      <div class="section-title">
-        Can't attend?
       </div>
-      <PrimaryCta
-        class="cta"
-        buttonText="Cancel Meeting"
-        :loadingState="false"
-        @click="cancelMeetingCall"
-      ></PrimaryCta>
-    </div>
-    <div class="section">
-      <div class="section-title">
-        Your Info
+      <div class="section">
+        <div class="section-title">
+          Your Info
+        </div>
+        <ul>
+          <li>{{ participantInfo.name }}</li>
+          <li>{{ participantInfo.email }}</li>
+          <li>{{ participantInfo.phoneNumber }}</li>
+        </ul>
       </div>
-      <ul>
-        <li>{{ participantInfo.name }}</li>
-        <li>{{ participantInfo.email }}</li>
-        <li>{{ participantInfo.phoneNumber }}</li>
-      </ul>
     </div>
   </div>
 </template>
 
 <script>
+import MeetingCanceled from '../components/JoinMeeting/MeetingCanceled';
+import MeetingLoading from '../components/JoinMeeting/MeetingLoading';
 import PrimaryCta from '../components/Reusible/PrimaryCta';
 import { getMeeting, cancelMeeting } from '@/modules/api.js';
 import {
@@ -55,12 +70,15 @@ export default {
   name: 'MeetingConfirmation',
   components: {
     PrimaryCta,
+    MeetingCanceled,
+    MeetingLoading,
   },
   data() {
     return {
       participantInfo: {},
       meetingDetails: {},
       refresher: 0,
+      meetingCanceled: false,
     };
   },
   computed: {
@@ -100,8 +118,10 @@ export default {
         const { interviewUuid } = this.$route.params;
         const response = await getMeeting(interviewUuid);
         console.log(response.data);
-        this.meetingDetails = response.data.meetingDetails;
-        this.participantInfo = response.data.participantInfo;
+        if (response.status === 200) {
+          this.meetingDetails = response.data.meetingDetails;
+          this.participantInfo = response.data.participantInfo;
+        }
       } catch (e) {
         console.log(e);
       }
@@ -110,6 +130,9 @@ export default {
       try {
         const { interviewUuid } = this.$route.params;
         const response = await cancelMeeting(interviewUuid);
+        if (response.status === 200) {
+          this.meetingCanceled = true;
+        }
         console.log(response.data);
       } catch (e) {
         console.log(e);
@@ -124,7 +147,7 @@ export default {
 </script>
 
 <style scoped>
-.confirmation-page-container {
+.meeting-page-container {
   margin: 0 var(--margin-sides);
 }
 
