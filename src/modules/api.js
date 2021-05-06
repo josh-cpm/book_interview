@@ -22,6 +22,16 @@ export async function getScreener(screenerUuid) {
     const response = await axios.get(
       `${base_url}/meet/screeners/${screenerUuid}`
     );
+    console.log(response);
+    return response;
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+export async function getMeeting(meetingUuid) {
+  try {
+    const response = axios.get(`${base_url}/meet/meetings/${meetingUuid}`);
     return response;
   } catch (e) {
     console.log(e);
