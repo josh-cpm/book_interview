@@ -49,6 +49,7 @@
 
 <script>
 import PrimaryCta from '../components/Reusible/PrimaryCta';
+import { getMeeting } from '@/modules/api.js';
 
 export default {
   name: 'MeetingConfirmation',
@@ -62,7 +63,7 @@ export default {
         email: 'josh24@gmail.com',
         tel: '919-697-8093',
       },
-      meetingDateTime: new Date('2021-04-12 09:00:00-4:00'),
+      meetingDateTime: new Date('2021-06-12 09:00:00-4:00'),
       meetingDetails: {},
     };
   },
@@ -78,11 +79,9 @@ export default {
     async getDetails() {
       try {
         const { interviewUuid } = this.$route.params;
-        const url = `http://localhost:3000/interview/meeting/${interviewUuid}`;
-        const response = await fetch(url);
-        const interviewData = await response.json();
-        console.log(interviewData);
-        this.meetingDetails = interviewData;
+        const response = await getMeeting(interviewUuid);
+        console.log(response.data);
+        this.meetingDetails = response.data;
       } catch (e) {
         console.log(e);
       }

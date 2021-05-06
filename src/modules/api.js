@@ -22,7 +22,6 @@ export async function getScreener(screenerUuid) {
     const response = await axios.get(
       `${base_url}/meet/screeners/${screenerUuid}`
     );
-    console.log(response);
     return response;
   } catch (e) {
     console.log(e);
