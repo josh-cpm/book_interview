@@ -11,10 +11,12 @@
     </div>
     <div class="section">
       <div class="section-title">Starts {{ meetingCountdown }}</div>
-      <PrimaryCta
-        buttonText="Join Meeting"
-        :inactiveState="joinCtaIsInactive"
-      ></PrimaryCta>
+      <a :href="joinCtaIsInactive ? '' : meetingDetails.linkToJoin">
+        <PrimaryCta
+          buttonText="Join Meeting"
+          :inactiveState="joinCtaIsInactive"
+        ></PrimaryCta>
+      </a>
     </div>
     <div class="section">
       <div class="section-title">
@@ -81,7 +83,7 @@ export default {
       this.refresher;
       const date = parseJSON(this.meetingDetails.time);
       const minLeft = differenceInMinutes(date, new Date());
-      if (minLeft <= 1000) {
+      if (minLeft <= 100) {
         return false;
       } else {
         return true;
