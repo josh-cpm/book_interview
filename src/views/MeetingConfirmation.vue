@@ -3,31 +3,23 @@
     <div class="section">
       <h2>Meeting Scheduled!</h2>
       <p>
-        You’ll meet with the Lasting team for 30 minutes at 9:30am Eastern time
-        on March 13.
+        You’ll meet with the Lasting team for
+        {{ meetingDetails.duration }} minutes at {{ meetingTime }} on
+        {{ meetingDate }}.
         <br />
-        {{ meetingTime }}
       </p>
     </div>
     <div class="section">
-      <div class="section-title">
-        Starts in 2:15:30
-      </div>
+      <div class="section-title">Starts {{ meetingCountdown }}</div>
       <PrimaryCta
         buttonText="Join Meeting"
-        :loadingState="false"
-        :inactiveState="true"
+        :inactiveState="joinCtaIsInactive"
       ></PrimaryCta>
     </div>
     <div class="section">
       <div class="section-title">
         Can't attend?
       </div>
-      <PrimaryCta
-        class="cta"
-        buttonText="Reschedule Meeting"
-        :loadingState="false"
-      ></PrimaryCta>
       <PrimaryCta
         class="cta"
         buttonText="Cancel Meeting"
@@ -41,7 +33,7 @@
       <ul>
         <li>{{ participantInfo.name }}</li>
         <li>{{ participantInfo.email }}</li>
-        <li>{{ participantInfo.tel }}</li>
+        <li>{{ participantInfo.phoneNumber }}</li>
       </ul>
     </div>
   </div>
@@ -50,6 +42,12 @@
 <script>
 import PrimaryCta from '../components/Reusible/PrimaryCta';
 import { getMeeting } from '@/modules/api.js';
+import {
+  format,
+  parseJSON,
+  formatDistanceToNow,
+  differenceInMinutes,
+} from 'date-fns';
 
 export default {
   name: 'MeetingConfirmation',
@@ -58,30 +56,49 @@ export default {
   },
   data() {
     return {
-      participantInfo: {
-        name: 'Joshua Miller',
-        email: 'josh24@gmail.com',
-        tel: '919-697-8093',
-      },
-      meetingDateTime: new Date('2021-06-12 09:00:00-4:00'),
+      participantInfo: {},
       meetingDetails: {},
+      refresher: 0,
     };
   },
   computed: {
     meetingTime() {
-      let startTime = new Date(this.meetingDetails.date);
-      startTime.setHours('2');
-      console.log(startTime);
-      return startTime;
+      const date = parseJSON(this.meetingDetails.time);
+      return format(date, 'p');
+    },
+    meetingDate() {
+      const date = parseJSON(this.meetingDetails.time);
+      return format(date, 'MMMM d');
+    },
+    meetingCountdown() {
+      this.refresher;
+      const date = parseJSON(this.meetingDetails.time);
+      return formatDistanceToNow(date, {
+        addSuffix: true,
+      });
+    },
+    joinCtaIsInactive() {
+      this.refresher;
+      const date = parseJSON(this.meetingDetails.time);
+      const minLeft = differenceInMinutes(date, new Date());
+      if (minLeft <= 1000) {
+        return false;
+      } else {
+        return true;
+      }
     },
   },
   methods: {
+    refresh() {
+      setInterval(() => this.refresher++, 1000);
+    },
     async getDetails() {
       try {
         const { interviewUuid } = this.$route.params;
         const response = await getMeeting(interviewUuid);
         console.log(response.data);
-        this.meetingDetails = response.data;
+        this.meetingDetails = response.data.meetingDetails;
+        this.participantInfo = response.data.participantInfo;
       } catch (e) {
         console.log(e);
       }
@@ -89,6 +106,7 @@ export default {
   },
   created() {
     this.getDetails();
+    this.refresh();
   },
 };
 </script>
