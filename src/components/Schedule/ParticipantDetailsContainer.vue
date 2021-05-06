@@ -87,6 +87,7 @@ export default {
       if (this.errorState) {
         return;
       } else {
+        console.log(store.participantDetails);
         this.$emit('meetingScheduled');
       }
     },
