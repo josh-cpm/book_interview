@@ -1,5 +1,4 @@
 <template>
-  <div class="confirmation-page-container">
     <div class="section">
       <h2>Meeting Scheduled!</h2>
       <p>
@@ -26,6 +25,7 @@
         class="cta"
         buttonText="Cancel Meeting"
         :loadingState="false"
+        @click="cancelMeetingCall"
       ></PrimaryCta>
     </div>
     <div class="section">
@@ -43,7 +43,7 @@
 
 <script>
 import PrimaryCta from '../components/Reusible/PrimaryCta';
-import { getMeeting } from '@/modules/api.js';
+import { getMeeting, cancelMeeting } from '@/modules/api.js';
 import {
   format,
   parseJSON,
@@ -70,6 +70,7 @@ export default {
     },
     meetingDate() {
       const date = parseJSON(this.meetingDetails.time);
+      console.log(date);
       return format(date, 'MMMM d');
     },
     meetingCountdown() {
@@ -101,6 +102,15 @@ export default {
         console.log(response.data);
         this.meetingDetails = response.data.meetingDetails;
         this.participantInfo = response.data.participantInfo;
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    async cancelMeetingCall() {
+      try {
+        const { interviewUuid } = this.$route.params;
+        const response = await cancelMeeting(interviewUuid);
+        console.log(response.data);
       } catch (e) {
         console.log(e);
       }

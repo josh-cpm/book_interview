@@ -36,3 +36,20 @@ export async function getMeeting(meetingUuid) {
     console.log(e);
   }
 }
+
+export async function cancelMeeting(meetingUuid) {
+  try {
+    const response = await axios({
+      method: 'patch',
+      url: `${base_url}/meet/meetings/${meetingUuid}`,
+      data: {
+        status: {
+          isCancelled: true,
+        },
+      },
+    });
+    return response;
+  } catch (e) {
+    console.log(e);
+  }
+}
