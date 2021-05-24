@@ -35,9 +35,11 @@ export default {
 .header-container,
 .cta-container {
   margin: var(--margin-sides);
+  margin-bottom: 2rem;
 }
 
-p {
-  margin-bottom: 2rem;
+p,
+h1 {
+  margin-bottom: 1rem;
 }
 </style>
