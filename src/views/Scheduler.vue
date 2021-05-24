@@ -9,10 +9,10 @@
 </template>
 
 <script>
-import MeetingDetails from '../components/Meet/MeetingDetails';
-import ScheduleContainer from '../components/Meet/ScheduleContainer';
-import ParticipantDetailsContainer from '../components/Meet/ParticipantDetailsContainer';
-import store from '../modules/store';
+import MeetingDetails from '@/components/Schedule/MeetingDetails';
+import ScheduleContainer from '@/components/Schedule/ScheduleContainer';
+import ParticipantDetailsContainer from '@/components/Schedule/ParticipantDetailsContainer';
+import store from '@/modules/store';
 import { postMeeting, getScreener } from '@/modules/api.js';
 
 export default {
