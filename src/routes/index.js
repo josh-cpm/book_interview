@@ -2,6 +2,7 @@ import { createWebHistory, createRouter } from 'vue-router';
 import Scheduler from '../views/Scheduler';
 import NotFound from '../views/Error';
 import MeetingConfirmation from '../views/MeetingConfirmation';
+import Screener from '../views/Screener';
 
 const routes = [
   {
