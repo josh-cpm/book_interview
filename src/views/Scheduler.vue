@@ -13,7 +13,7 @@ import MeetingDetails from '@/components/Schedule/MeetingDetails';
 import ScheduleContainer from '@/components/Schedule/ScheduleContainer';
 import ParticipantDetailsContainer from '@/components/Schedule/ParticipantDetailsContainer';
 import store from '@/modules/store';
-import { postMeeting, getScreener } from '@/modules/api.js';
+import { postMeeting } from '@/modules/api.js';
 
 export default {
   name: 'SchedulerView',
@@ -41,20 +41,6 @@ export default {
         );
       }
     },
-    async getOpenings() {
-      const screenerUuid = this.$route.params.screenerUuid;
-      const response = await getScreener(screenerUuid);
-      if (response.status === 200) {
-        console.log(response.data);
-        store.meetingDetails = response.data.meetingDetails;
-        store.flatMeetingOpenings = response.data.flatMeetingOpenings;
-        store.screener = response.data.screener;
-      }
-    },
-  },
-  created() {
-    this.getOpenings();
-    //
   },
 };
 </script>
