@@ -3,18 +3,24 @@
     Hello world
     <ScreenerWelcome></ScreenerWelcome>
     <ScreenerQuestions></ScreenerQuestions>
-    <ScreenerSuccess></ScreenerSuccess>
+    <ScreenerComplete></ScreenerComplete>
   </div>
 </template>
 
 <script>
 import ScreenerWelcome from '../components/Screener/ScreenerWelcome';
 import ScreenerQuestions from '../components/Screener/ScreenerQuestions';
-import ScreenerSuccess from '../components/Screener/ScreenerSuccess';
+import ScreenerComplete from '../components/Screener/ScreenerComplete';
+import store from '../modules/store.js';
 
 export default {
   name: 'Screener',
-  components: { ScreenerWelcome, ScreenerQuestions, ScreenerSuccess },
+  components: { ScreenerWelcome, ScreenerQuestions, ScreenerComplete },
+  computed: {
+    screenerQuestions() {
+      return store.screener;
+    },
+  },
 };
 </script>
 
