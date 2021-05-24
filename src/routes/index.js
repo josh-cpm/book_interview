@@ -5,6 +5,11 @@ import MeetingConfirmation from '../views/MeetingConfirmation';
 
 const routes = [
   {
+    path: '/interview/screener/:screenerUuid',
+    name: 'Screener',
+    component: Screener,
+  },
+  {
     path: '/interview/schedule/:screenerUuid',
     name: 'Scheduler',
     component: Scheduler,
