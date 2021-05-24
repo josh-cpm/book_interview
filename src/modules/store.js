@@ -6,4 +6,6 @@ export default reactive({
   meetingOpenings: {},
   screener: {},
   participantDetails: {},
+  participantScreenerAnswers: {},
+  participantStatus: '',
 });

@@ -1,9 +1,7 @@
 <template>
   <div class="screener-flow-container">
-    Hello world
-    <ScreenerWelcome></ScreenerWelcome>
-    <ScreenerQuestions></ScreenerQuestions>
-    <ScreenerComplete></ScreenerComplete>
+    <p>The current question is {{ currentQuestion }}</p>
+    <component :is="showComponent"></component>
   </div>
 </template>
 
@@ -19,6 +17,31 @@ export default {
   computed: {
     screenerQuestions() {
       return store.screener;
+    },
+    participantScreenerAnswers() {
+      return store.participantScreenerAnswers;
+    },
+    participantStatus() {
+      return store.participantStatus;
+    },
+    currentQuestion() {
+      let curQuestion = 0;
+      const screener = Array.from(store.screener);
+      screener.forEach((page, index) => {
+        if (page.userAnswer !== undefined) {
+          curQuestion = index + 1;
+        }
+      });
+      return curQuestion;
+    },
+    showComponent() {
+      if (this.participantStatus && this.participantStatus.length > 0) {
+        return ScreenerComplete;
+      } else if (this.currentQuestion > 0) {
+        return ScreenerQuestions;
+      } else {
+        return ScreenerWelcome;
+      }
     },
   },
 };
