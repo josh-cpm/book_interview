@@ -1,0 +1,3 @@
+<template>
+  Screener Welcome
+</template>
