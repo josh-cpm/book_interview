@@ -36,4 +36,8 @@ export default {
 .cta-container {
   margin: var(--margin-sides);
 }
+
+p {
+  margin-bottom: 2rem;
+}
 </style>
