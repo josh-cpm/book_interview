@@ -1,10 +1,14 @@
 <template>
   <div>
-    <h1>Let's Meet!</h1>
-    <p>Get paid ${{ incentive }} for sharing your thoughts with our team.</p>
+    <div class="header-container">
+      <h1>Let's Meet!</h1>
+      <p>Get paid ${{ incentive }} for sharing your thoughts with our team.</p>
+    </div>
     <MeetingDetails></MeetingDetails>
-    <p>Answer a few questions to see if you qualify for this interview.</p>
-    <PrimaryCta buttonText="Lets Begin"></PrimaryCta>
+    <div class="cta-container">
+      <p>Answer a few questions to see if you qualify for this interview.</p>
+      <PrimaryCta buttonText="Lets Begin"></PrimaryCta>
+    </div>
   </div>
 </template>
 
@@ -26,3 +30,10 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.header-container,
+.cta-container {
+  margin: var(--margin-sides);
+}
+</style>
