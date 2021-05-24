@@ -46,9 +46,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.screener-flow-container {
-  margin: var(--margin-sides);
-}
-</style>
