@@ -1,8 +1,10 @@
 <template>
-  Hello world
-  <ScreenerWelcome></ScreenerWelcome>
-  <ScreenerQuestions></ScreenerQuestions>
-  <ScreenerSuccess></ScreenerSuccess>
+  <div class="screener-flow-container">
+    Hello world
+    <ScreenerWelcome></ScreenerWelcome>
+    <ScreenerQuestions></ScreenerQuestions>
+    <ScreenerSuccess></ScreenerSuccess>
+  </div>
 </template>
 
 <script>
@@ -15,3 +17,9 @@ export default {
   components: { ScreenerWelcome, ScreenerQuestions, ScreenerSuccess },
 };
 </script>
+
+<style scoped>
+.screener-flow-container {
+  margin: var(--margin-sides);
+}
+</style>
