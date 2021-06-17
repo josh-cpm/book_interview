@@ -1,23 +1,31 @@
 <template>
   <div class="quiz-question">
     <div class="quiz-question__progress-bar"></div>
-    <MultiSelect :question="question"></MultiSelect>
+    <component :is="questionType" :question="question"></component>
   </div>
 </template>
 
 <script>
 import MultiSelect from './ScreenerMultiSelectPage';
+import SingleSelect from './ScreenerSingleSelectPage';
 import store from '@/modules/store.js';
 
 export default {
   name: 'ScreenerQuestions',
-  components: { MultiSelect },
+  components: { MultiSelect, SingleSelect },
   props: {
     currentQuestion: Number,
   },
   computed: {
     question() {
       return store.screener[this.currentQuestion];
+    },
+    questionType() {
+      if (this.question.questionType === 'singleSelection') {
+        return SingleSelect;
+      } else {
+        return MultiSelect;
+      }
     },
   },
 };
