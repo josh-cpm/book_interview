@@ -1,7 +1,11 @@
 <template>
   <div class="quiz-question">
     <div class="quiz-question__progress-bar"></div>
-    <component :is="questionType" :question="question"></component>
+    <component
+      :is="questionType"
+      :currentQuestion="currentQuestion"
+      :question="question"
+    ></component>
   </div>
 </template>
 
