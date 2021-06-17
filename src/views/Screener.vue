@@ -1,6 +1,7 @@
 <template>
   <div class="screener-flow-container">
     <p>The current question is {{ currentQuestion }}</p>
+    <p>The current participantStatus is {{ participantStatus }}</p>
     <component
       :is="showComponent"
       :currentQuestion="currentQuestion"
@@ -31,7 +32,6 @@ export default {
       return store.startedScreener;
     },
     currentQuestion() {
-      window.r = store;
       let curQuestion = 0;
       const screener = Array.from(store.screener);
       screener.forEach((page, index) => {
@@ -42,6 +42,7 @@ export default {
       return curQuestion;
     },
     showComponent() {
+      this.validateAnswer(); // re-validate participant status anytme the store updates
       if (this.participantStatus && this.participantStatus.length > 0) {
         return ScreenerComplete;
       } else if (this.currentQuestion > 0 || this.startedScreener) {
@@ -49,6 +50,23 @@ export default {
       } else {
         return ScreenerWelcome;
       }
+    },
+  },
+  methods: {
+    validateAnswer() {
+      const questions = Array.from(store.screener);
+      questions.forEach((question) => {
+        if (question.answers === undefined) {
+          return;
+        }
+        question.answers.forEach((answer) => {
+          if (question.userAnswer === answer.answer) {
+            if (answer.rejectIfSelected) {
+              store.participantStatus = 'rejected';
+            }
+          }
+        });
+      });
     },
   },
 };
