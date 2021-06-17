@@ -1,7 +1,10 @@
 <template>
   <div class="screener-flow-container">
     <p>The current question is {{ currentQuestion }}</p>
-    <component :is="showComponent"></component>
+    <component
+      :is="showComponent"
+      :currentQuestion="currentQuestion"
+    ></component>
   </div>
 </template>
 
@@ -28,7 +31,7 @@ export default {
       return store.startedScreener;
     },
     currentQuestion() {
-      window.r = store.screener;
+      window.r = store;
       let curQuestion = 0;
       const screener = Array.from(store.screener);
       screener.forEach((page, index) => {
