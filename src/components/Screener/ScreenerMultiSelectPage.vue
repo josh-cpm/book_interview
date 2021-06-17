@@ -1,13 +1,18 @@
 <template>
   <div>
     <div class="quiz-question__title">
-      Which of the following devices do you own?
+      {{ question.question }}
     </div>
     <p class="quiz-question__label">
       Select all that apply
     </p>
     <div class="quiz-question__answers">
-      <QuizSelectButton buttonValue="iPhone"></QuizSelectButton>
+      <QuizSelectButton
+        class="quiz-question__answer"
+        v-for="answer in question.answers"
+        :key="answer.answer"
+        :buttonValue="answer.answer"
+      ></QuizSelectButton>
     </div>
     <PrimaryCta buttonValue="Next"></PrimaryCta>
   </div>
@@ -19,7 +24,9 @@ import PrimaryCta from '../Reusible/PrimaryCta';
 
 export default {
   name: 'ScreenerMultiSelect',
+  props: ['question'],
   components: { QuizSelectButton, PrimaryCta },
+  computed: {},
 };
 </script>
 
@@ -38,6 +45,10 @@ export default {
 }
 
 .quiz-question__answers {
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
+}
+
+.quiz-question__answer {
+  margin-bottom: 0.5rem;
 }
 </style>

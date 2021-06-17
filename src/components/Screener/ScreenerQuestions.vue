@@ -1,16 +1,25 @@
 <template>
   <div class="quiz-question">
     <div class="quiz-question__progress-bar"></div>
-    <MultiSelect></MultiSelect>
+    <MultiSelect :question="question"></MultiSelect>
   </div>
 </template>
 
 <script>
 import MultiSelect from './ScreenerMultiSelectPage';
+import store from '@/modules/store.js';
 
 export default {
   name: 'ScreenerQuestions',
   components: { MultiSelect },
+  props: {
+    currentQuestion: Number,
+  },
+  computed: {
+    question() {
+      return store.screener[this.currentQuestion];
+    },
+  },
 };
 </script>
 
