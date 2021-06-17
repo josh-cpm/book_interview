@@ -1,26 +1,16 @@
 <template>
   <div class="quiz-question">
     <div class="quiz-question__progress-bar"></div>
-    <div class="quiz-question__title">
-      Which of the following devices do you own?
-    </div>
-    <p class="quiz-question__label">
-      Select all that apply
-    </p>
-    <div class="quiz-question__answers">
-      <QuizSelectButton buttonValue="iPhone"></QuizSelectButton>
-    </div>
-    <PrimaryCta buttonValue="Next"></PrimaryCta>
+    <MultiSelect></MultiSelect>
   </div>
 </template>
 
 <script>
-import QuizSelectButton from '../Reusible/quizSelectButons/QuizSelectDefault';
-import PrimaryCta from '../Reusible/PrimaryCta';
+import MultiSelect from './ScreenerMultiSelectPage';
 
 export default {
   name: 'ScreenerQuestions',
-  components: { QuizSelectButton, PrimaryCta },
+  components: { MultiSelect },
 };
 </script>
 
