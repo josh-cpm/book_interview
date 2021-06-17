@@ -3,7 +3,7 @@
     <div class="quiz-question__progress-bar"></div>
     <component
       :is="questionType"
-      :currentQuestion="currentQuestion"
+      :currentQuestion="currentQuestionIndex"
       :question="question"
     ></component>
   </div>
@@ -30,6 +30,9 @@ export default {
       } else {
         return MultiSelect;
       }
+    },
+    currentQuestionIndex() {
+      return this.currentQuestion;
     },
   },
 };

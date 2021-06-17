@@ -9,6 +9,7 @@
         v-for="answer in question.answers"
         :key="answer.answer"
         :buttonValue="answer.answer"
+        @click="submitAnswer"
       ></QuizSelectButton>
     </div>
   </div>
@@ -16,12 +17,19 @@
 
 <script>
 import QuizSelectButton from '../Reusible/quizSelectButons/QuizSelectDefault';
+import store from '@/modules/store.js';
 
 export default {
   name: 'ScreenerSingleSelect',
-  props: ['question'],
+  props: ['question', 'currentQuestion'],
   components: { QuizSelectButton },
-  computed: {},
+  methods: {
+    submitAnswer(e) {
+      store;
+      console.log(e.target.textContent);
+      store.screener[this.currentQuestion].userAnswer = e.target.textContent;
+    },
+  },
 };
 </script>
 
