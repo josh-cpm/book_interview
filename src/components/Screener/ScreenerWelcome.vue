@@ -7,7 +7,10 @@
     <MeetingDetails></MeetingDetails>
     <div class="cta-container">
       <p>Answer a few questions to see if you qualify for this interview.</p>
-      <PrimaryCta buttonText="Lets Begin"></PrimaryCta>
+      <PrimaryCta
+        @click="clickStartScreener"
+        buttonText="Lets Begin"
+      ></PrimaryCta>
     </div>
   </div>
 </template>
@@ -26,6 +29,12 @@ export default {
   computed: {
     incentive() {
       return store.meetingDetails.incentive;
+    },
+  },
+  methods: {
+    clickStartScreener() {
+      console.log('start screener');
+      store.startedScreener = true;
     },
   },
 };

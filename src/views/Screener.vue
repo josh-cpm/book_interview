@@ -24,7 +24,11 @@ export default {
     participantStatus() {
       return store.participantStatus;
     },
+    startedScreener() {
+      return store.startedScreener;
+    },
     currentQuestion() {
+      window.r = store.screener;
       let curQuestion = 0;
       const screener = Array.from(store.screener);
       screener.forEach((page, index) => {
@@ -37,7 +41,7 @@ export default {
     showComponent() {
       if (this.participantStatus && this.participantStatus.length > 0) {
         return ScreenerComplete;
-      } else if (this.currentQuestion > 0) {
+      } else if (this.currentQuestion > 0 || this.startedScreener) {
         return ScreenerQuestions;
       } else {
         return ScreenerWelcome;
