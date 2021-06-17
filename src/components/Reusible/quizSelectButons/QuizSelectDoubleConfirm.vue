@@ -24,7 +24,7 @@
 
 <script>
 export default {
-  name: 'QuizSelectDefault',
+  name: 'QuizSelectDoubleConfirm',
   props: ['buttonValue', 'confirmButtonValue', 'buttonData'],
   emits: ['confirm'],
   data() {
