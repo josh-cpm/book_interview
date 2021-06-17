@@ -10,7 +10,7 @@
     <div class="quiz-question__answers">
       <QuizSelectButton buttonValue="iPhone"></QuizSelectButton>
     </div>
-    <PrimaryCta buttonText="Next"></PrimaryCta>
+    <PrimaryCta buttonValue="Next"></PrimaryCta>
   </div>
 </template>
 

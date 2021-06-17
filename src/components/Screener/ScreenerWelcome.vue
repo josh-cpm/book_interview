@@ -9,7 +9,7 @@
       <p>Answer a few questions to see if you qualify for this interview.</p>
       <PrimaryCta
         @click="clickStartScreener"
-        buttonText="Lets Begin"
+        buttonValue="Lets Begin"
       ></PrimaryCta>
     </div>
   </div>

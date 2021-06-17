@@ -36,7 +36,7 @@
       <div v-if="errorState">Please correct errors and try again.</div>
       <PrimaryCta
         class="cta"
-        buttonText="Schedule Meeting"
+        buttonValue="Schedule Meeting"
         :loadingState="false"
         :inactiveState="errorState"
         @click="scheduleMeeting"

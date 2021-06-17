@@ -24,7 +24,7 @@
         <div class="section-title">Starts {{ meetingCountdown }}</div>
         <a :href="joinCtaIsInactive ? '' : meetingDetails.linkToJoin">
           <PrimaryCta
-            buttonText="Join Meeting"
+            buttonValue="Join Meeting"
             :inactiveState="joinCtaIsInactive"
           ></PrimaryCta>
         </a>
@@ -35,7 +35,7 @@
         </div>
         <PrimaryCta
           class="cta"
-          buttonText="Cancel Meeting"
+          buttonValue="Cancel Meeting"
           :loadingState="false"
           @click="cancelMeetingCall"
         ></PrimaryCta>

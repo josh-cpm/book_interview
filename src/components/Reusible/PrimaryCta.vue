@@ -3,7 +3,7 @@
     <span v-if="loadingState"
       ><img class="loading-state-icon" src="/loading_cta_icon.svg"
     /></span>
-    <span v-else>{{ buttonText }} </span>
+    <span v-else>{{ buttonValue }} </span>
   </button>
 </template>
 
@@ -11,7 +11,7 @@
 export default {
   name: 'Primary Cta',
   props: {
-    buttonText: String,
+    buttonValue: String,
     loadingState: Boolean,
     inactiveState: Boolean,
   },
