@@ -14,7 +14,6 @@
         :buttonValue="answer.answer"
         :answerData="answer"
         @selectAnswer="selectAnswer"
-        @unSelectAnswer="unSelectAnswer"
       ></QuizSelectWithCheckMark>
     </div>
     <PrimaryCta buttonValue="Next"></PrimaryCta>
@@ -37,12 +36,14 @@ export default {
   computed: {},
   methods: {
     selectAnswer(e) {
-      console.log('selected');
-      console.log(e);
-    },
-    unSelectAnswer(e) {
-      console.log('unselected');
-      console.log(e);
+      const index = this.selectedAnswers.findIndex((el) => el === e);
+      if (index >= 0) {
+        this.selectedAnswers.splice(index, 1);
+      } else {
+        this.selectedAnswers.push(e);
+      }
+      console.log('Selected Answers:');
+      console.log(this.selectedAnswers);
     },
   },
 };
