@@ -17,11 +17,6 @@ export default {
   name: 'QuizSelectDefault',
   props: ['buttonValue', 'answerData', 'isSelected'],
   methods: {
-    // showConfirm() {
-    //   //add checkmark
-    //   console.log('clicked!');
-    //   this.emitSelection();
-    // },
     emitSelection() {
       this.$emit('selectAnswer', this.answerData);
     },
