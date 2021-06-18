@@ -17,17 +17,18 @@
         @selectAnswer="selectAnswer"
       ></QuizSelectWithCheckMark>
     </div>
-    <PrimaryCta buttonValue="Next"></PrimaryCta>
+    <PrimaryCta buttonValue="Next" @click="submitAnswer"></PrimaryCta>
   </div>
 </template>
 
 <script>
 import QuizSelectWithCheckMark from '../Reusible/quizSelectButons/QuizSelectWithCheckMark';
 import PrimaryCta from '../Reusible/PrimaryCta';
+import store from '@/modules/store.js';
 
 export default {
   name: 'ScreenerMultiSelect',
-  props: ['question'],
+  props: ['question', 'currentQuestion'],
   data() {
     return {
       selectedAnswers: [],
@@ -60,6 +61,9 @@ export default {
     },
     showSelectionStatus(answer) {
       answer;
+    },
+    submitAnswer() {
+      store.screener[this.currentQuestion].userAnswer = this.selectedAnswers;
     },
   },
 };
