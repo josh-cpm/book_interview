@@ -14,6 +14,8 @@ export default {
   methods: {
     showConfirm() {
       //add checkmark
+      console.log('clicked!');
+      this.emitSelection();
     },
     emitSelection() {
       this.$emit('selectAnswer', this.answerData);
