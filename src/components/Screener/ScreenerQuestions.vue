@@ -27,7 +27,9 @@ export default {
     questionType() {
       if (this.question.questionType === 'singleSelection') {
         return SingleSelect;
-      } else {
+      }
+      // if (this.question.questionType === 'multiSelection')
+      else {
         return MultiSelect;
       }
     },
