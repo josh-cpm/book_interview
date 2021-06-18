@@ -1,5 +1,9 @@
 <template>
-  <button @click="showConfirm" class="button-container button">
+  <button
+    @click="emitSelection"
+    class="button-container"
+    :class="{ selected: isSelected }"
+  >
     <div class="button-content">
       <span v-if="buttonValue">{{ buttonValue }}</span>
       <span v-else>-----</span>
@@ -10,13 +14,13 @@
 <script>
 export default {
   name: 'QuizSelectDefault',
-  props: ['buttonValue', 'answerData'],
+  props: ['buttonValue', 'answerData', 'isSelected'],
   methods: {
-    showConfirm() {
-      //add checkmark
-      console.log('clicked!');
-      this.emitSelection();
-    },
+    // showConfirm() {
+    //   //add checkmark
+    //   console.log('clicked!');
+    //   this.emitSelection();
+    // },
     emitSelection() {
       this.$emit('selectAnswer', this.answerData);
     },
@@ -36,5 +40,9 @@ export default {
   border: 2px solid #000000;
   border-radius: 2px;
   font-size: 1rem;
+}
+
+.selected {
+  border: 2px solid var(--color-primary);
 }
 </style>
