@@ -71,13 +71,13 @@ export default {
     },
     checkForQuizCompletion() {
       const screener = Array.from(store.screener);
-      let unansweredQuestionCount = 0;
+      let unansweredQuestionCount = screener.length;
       screener.forEach((question) => {
-        if (question.userAnswer === undefined) {
-          unansweredQuestionCount += 1;
+        if (question.userAnswer !== undefined) {
+          unansweredQuestionCount -= 1;
         }
       });
-      if (unansweredQuestionCount === 0) {
+      if (unansweredQuestionCount === 0 && screener.length > 0) {
         store.participantStatus = 'accepted';
       }
     },
