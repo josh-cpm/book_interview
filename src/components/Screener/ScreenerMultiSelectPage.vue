@@ -12,6 +12,9 @@
         v-for="answer in question.answers"
         :key="answer.answer"
         :buttonValue="answer.answer"
+        :answerData="answer"
+        @selectAnswer="selectAnswer"
+        @unSelectAnswer="unSelectAnswer"
       ></QuizSelectButton>
     </div>
     <PrimaryCta buttonValue="Next"></PrimaryCta>
@@ -25,8 +28,23 @@ import PrimaryCta from '../Reusible/PrimaryCta';
 export default {
   name: 'ScreenerMultiSelect',
   props: ['question'],
+  data() {
+    return {
+      selectedAnswers: [],
+    };
+  },
   components: { QuizSelectButton, PrimaryCta },
   computed: {},
+  methods: {
+    selectAnswer(e) {
+      console.log('selected');
+      console.log(e);
+    },
+    unSelectAnswer(e) {
+      console.log('unselected');
+      console.log(e);
+    },
+  },
 };
 </script>
 
