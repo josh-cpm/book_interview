@@ -9,10 +9,11 @@
     <div class="quiz-question__answers">
       <QuizSelectWithCheckMark
         class="quiz-question__answer"
-        v-for="answer in question.answers"
+        v-for="answer in answersList"
         :key="answer.answer"
         :buttonValue="answer.answer"
         :answerData="answer"
+        :selected="answer.isSelected"
         @selectAnswer="selectAnswer"
       ></QuizSelectWithCheckMark>
     </div>
@@ -33,7 +34,21 @@ export default {
     };
   },
   components: { QuizSelectWithCheckMark, PrimaryCta },
-  computed: {},
+  computed: {
+    answersList() {
+      const answers = this.question.answers;
+      const selectedAnswers = this.selectedAnswers;
+      answers.forEach((answer) => {
+        const index = selectedAnswers.findIndex((el) => el === answer);
+        if (index >= 0) {
+          answer.isSelected = true;
+        } else {
+          answer.isSelected = false;
+        }
+      });
+      return answers;
+    },
+  },
   methods: {
     selectAnswer(e) {
       const index = this.selectedAnswers.findIndex((el) => el === e);
