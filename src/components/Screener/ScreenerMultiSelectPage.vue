@@ -57,8 +57,6 @@ export default {
       } else {
         this.selectedAnswers.push(e);
       }
-      console.log('Selected Answers:');
-      console.log(this.selectedAnswers);
     },
     showSelectionStatus(answer) {
       answer;
