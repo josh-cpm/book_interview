@@ -17,7 +17,14 @@
         @selectAnswer="selectAnswer"
       ></QuizSelectWithCheckMark>
     </div>
-    <PrimaryCta buttonValue="Next" @click="submitAnswer"></PrimaryCta>
+    <PrimaryCta
+      :class="{ hidden: !selectedAnswers.length }"
+      buttonValue="Next"
+      @click="submitAnswer"
+    ></PrimaryCta>
+    <p v-if="errors.incomplete" class="error-text">
+      Please select an answer to continue.
+    </p>
   </div>
 </template>
 
@@ -32,6 +39,7 @@ export default {
   data() {
     return {
       selectedAnswers: [],
+      errors: {},
     };
   },
   components: { QuizSelectWithCheckMark, PrimaryCta },
@@ -63,7 +71,11 @@ export default {
       answer;
     },
     submitAnswer() {
-      store.screener[this.currentQuestion].userAnswer = this.selectedAnswers;
+      if (this.selectedAnswers.length > 0) {
+        store.screener[this.currentQuestion].userAnswer = this.selectedAnswers;
+      } else {
+        this.errors.incomplete = true;
+      }
     },
   },
 };
@@ -89,5 +101,15 @@ export default {
 
 .quiz-question__answer {
   margin-bottom: 0.5rem;
+}
+
+.error-text {
+  color: var(--color-primary);
+  text-align: center;
+  margin: 1rem 0 1rem 0;
+}
+
+.hidden {
+  visibility: hidden;
 }
 </style>
