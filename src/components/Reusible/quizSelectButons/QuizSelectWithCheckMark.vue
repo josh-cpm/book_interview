@@ -4,6 +4,7 @@
     class="button-container"
     :class="{ selected: isSelected }"
   >
+    <img v-if="isSelected" class="check-mark" src="/purple_check_mark.png" />
     <div class="button-content">
       <span v-if="buttonValue">{{ buttonValue }}</span>
       <span v-else>-----</span>
@@ -31,6 +32,7 @@ export default {
 <style scoped>
 .button-container {
   box-sizing: border-box;
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -44,5 +46,11 @@ export default {
 
 .selected {
   border: 2px solid var(--color-primary);
+}
+
+.check-mark {
+  position: absolute;
+  right: 0;
+  margin: 0.7rem;
 }
 </style>
