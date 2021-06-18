@@ -7,7 +7,7 @@
       Select all that apply
     </p>
     <div class="quiz-question__answers">
-      <QuizSelectButton
+      <QuizSelectWithCheckMark
         class="quiz-question__answer"
         v-for="answer in question.answers"
         :key="answer.answer"
@@ -15,14 +15,14 @@
         :answerData="answer"
         @selectAnswer="selectAnswer"
         @unSelectAnswer="unSelectAnswer"
-      ></QuizSelectButton>
+      ></QuizSelectWithCheckMark>
     </div>
     <PrimaryCta buttonValue="Next"></PrimaryCta>
   </div>
 </template>
 
 <script>
-import QuizSelectButton from '../Reusible/quizSelectButons/QuizSelectDefault';
+import QuizSelectWithCheckMark from '../Reusible/quizSelectButons/QuizSelectWithCheckMark';
 import PrimaryCta from '../Reusible/PrimaryCta';
 
 export default {
@@ -33,7 +33,7 @@ export default {
       selectedAnswers: [],
     };
   },
-  components: { QuizSelectButton, PrimaryCta },
+  components: { QuizSelectWithCheckMark, PrimaryCta },
   computed: {},
   methods: {
     selectAnswer(e) {
