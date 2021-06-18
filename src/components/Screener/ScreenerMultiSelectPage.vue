@@ -13,7 +13,7 @@
         :key="answer.answer"
         :buttonValue="answer.answer"
         :answerData="answer"
-        :selected="answer.isSelected"
+        :isSelected="answer.isSelected"
         @selectAnswer="selectAnswer"
       ></QuizSelectWithCheckMark>
     </div>
