@@ -16,7 +16,7 @@ export default {
       //add checkmark
     },
     emitSelection() {
-      this.$emit('selectButton', this.answerData);
+      this.$emit('selectAnswer', this.answerData);
     },
   },
 };
