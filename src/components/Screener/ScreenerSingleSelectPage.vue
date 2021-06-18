@@ -25,8 +25,6 @@ export default {
   components: { QuizSelectButton },
   methods: {
     submitAnswer(e) {
-      store;
-      console.log(e.target.textContent);
       store.screener[this.currentQuestion].userAnswer = e.target.textContent;
     },
   },
