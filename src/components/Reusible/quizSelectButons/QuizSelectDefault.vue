@@ -1,5 +1,5 @@
 <template>
-  <button @click="showConfirm" class="button-container button">
+  <button @click="emitSelection" class="button-container button">
     <div class="button-content">
       <span v-if="buttonValue">{{ buttonValue }}</span>
       <span v-else>-----</span>
@@ -10,7 +10,12 @@
 <script>
 export default {
   name: 'QuizSelectDefault',
-  props: ['buttonValue'],
+  props: ['buttonValue', 'answerData'],
+  methods: {
+    emitSelection() {
+      this.$emit('selectAnswer', this.answerData);
+    },
+  },
 };
 </script>
 

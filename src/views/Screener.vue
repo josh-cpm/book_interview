@@ -54,19 +54,19 @@ export default {
   },
   methods: {
     validateAnswer() {
-      // this logic only checks single-select answers
-      console.log(store);
       const questions = Array.from(store.screener);
       questions.forEach((question) => {
         if (question.answers === undefined || question.answers.length === 0) {
           return;
         }
-        // question.userAnswers.forEach()
-        question.answers.forEach((answer) => {
-          if (question.userAnswers === answer.answer) {
-            if (answer.rejectIfSelected) {
-              store.participantStatus = 'rejected';
-            }
+        if (question.userAnswers === undefined) {
+          return;
+        }
+        console.log('user has answers');
+        question.userAnswers.forEach((answer) => {
+          console.log(answer.answer);
+          if (answer.rejectIfSelected) {
+            store.participantStatus = 'rejected';
           }
         });
       });

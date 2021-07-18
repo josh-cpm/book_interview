@@ -9,7 +9,8 @@
         v-for="answer in question.answers"
         :key="answer.answer"
         :buttonValue="answer.answer"
-        @click="submitAnswer"
+        :answerData="answer"
+        @selectAnswer="submitAnswer"
       ></QuizSelectButton>
     </div>
   </div>
@@ -25,7 +26,7 @@ export default {
   components: { QuizSelectButton },
   methods: {
     submitAnswer(e) {
-      store.screener[this.currentQuestion].userAnswers = e.target.textContent;
+      store.screener[this.currentQuestion].userAnswers = [e];
     },
   },
 };
