@@ -72,7 +72,7 @@ export default {
     },
     submitAnswer() {
       if (this.selectedAnswers.length > 0) {
-        store.screener[this.currentQuestion].userAnswer = this.selectedAnswers;
+        store.screener[this.currentQuestion].userAnswers = this.selectedAnswers;
       } else {
         this.errors.incomplete = true;
       }
