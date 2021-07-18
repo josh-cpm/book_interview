@@ -43,7 +43,7 @@ export default {
     },
     showComponent() {
       this.validateAnswer(); // re-validate participant status anytme the store updates
-      if (this.participantStatus && this.participantStatus.length > 0) {
+      if (this.participantStatus) {
         return ScreenerComplete;
       } else if (this.currentQuestion > 0 || this.startedScreener) {
         return ScreenerQuestions;
@@ -54,6 +54,7 @@ export default {
   },
   methods: {
     validateAnswer() {
+      // this logic only checks single-select answers
       const questions = Array.from(store.screener);
       questions.forEach((question) => {
         if (question.answers === undefined) {
@@ -77,7 +78,9 @@ export default {
           unansweredQuestionCount -= 1;
         }
       });
-      if (unansweredQuestionCount === 0 && screener.length > 0) {
+      if (store.participantStatus === 'rejected') {
+        return;
+      } else if (unansweredQuestionCount === 0 && screener.length > 0) {
         store.participantStatus = 'accepted';
       }
     },
