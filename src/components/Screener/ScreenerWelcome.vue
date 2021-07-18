@@ -5,11 +5,17 @@
       <p>Get paid ${{ incentive }} for sharing your thoughts with our team.</p>
     </div>
     <MeetingDetails></MeetingDetails>
-    <div class="cta-container">
+    <div v-if="hasScreener" class="cta-container">
       <p>Answer a few questions to see if you qualify for this interview.</p>
       <PrimaryCta
         @click="clickStartScreener"
         buttonValue="Lets Begin"
+      ></PrimaryCta>
+    </div>
+    <div v-else class="cta-container">
+      <PrimaryCta
+        @click="openSchedulePage"
+        buttonValue="View Openings"
       ></PrimaryCta>
     </div>
   </div>
@@ -30,11 +36,21 @@ export default {
     incentive() {
       return store.meetingDetails.incentive;
     },
+    hasScreener() {
+      if (store.screener && store.screener.length > 0) {
+        return true;
+      } else {
+        return false;
+      }
+    },
   },
   methods: {
     clickStartScreener() {
       console.log('start screener');
       store.startedScreener = true;
+    },
+    openSchedulePage() {
+      this.$router.push('/interview/schedule/sdlfkj');
     },
   },
 };
