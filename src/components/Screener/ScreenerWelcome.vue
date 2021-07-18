@@ -50,6 +50,7 @@ export default {
       store.startedScreener = true;
     },
     openSchedulePage() {
+      //TODO: Uses placholder 'sdlfkj' for screenerId
       this.$router.push('/interview/schedule/sdlfkj');
     },
   },
