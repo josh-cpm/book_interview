@@ -35,7 +35,7 @@ export default {
       let curQuestion = 0;
       const screener = Array.from(store.screener);
       screener.forEach((page, index) => {
-        if (page.userAnswer !== undefined) {
+        if (page.userAnswers !== undefined) {
           curQuestion = index + 1;
         }
       });
@@ -55,13 +55,15 @@ export default {
   methods: {
     validateAnswer() {
       // this logic only checks single-select answers
+      console.log(store);
       const questions = Array.from(store.screener);
       questions.forEach((question) => {
-        if (question.answers === undefined) {
+        if (question.answers === undefined || question.answers.length === 0) {
           return;
         }
+        // question.userAnswers.forEach()
         question.answers.forEach((answer) => {
-          if (question.userAnswer === answer.answer) {
+          if (question.userAnswers === answer.answer) {
             if (answer.rejectIfSelected) {
               store.participantStatus = 'rejected';
             }
@@ -74,7 +76,7 @@ export default {
       const screener = Array.from(store.screener);
       let unansweredQuestionCount = screener.length;
       screener.forEach((question) => {
-        if (question.userAnswer !== undefined) {
+        if (question.userAnswers !== undefined) {
           unansweredQuestionCount -= 1;
         }
       });
