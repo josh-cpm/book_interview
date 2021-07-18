@@ -4,7 +4,10 @@
       <h1>Congratulations!</h1>
       <p>You qualify for this interview.</p>
       <p>Now it’s time to book your meeting slot.</p>
-      <PrimaryCta buttonValue="View Openings"></PrimaryCta>
+      <PrimaryCta
+        buttonValue="View Openings"
+        @click="openSchedulePage"
+      ></PrimaryCta>
     </div>
     <div v-else class="screener-complete-container">
       <h1>All Timeslots Filled!</h1>
@@ -29,7 +32,12 @@ export default {
       return store.participantStatus;
     },
   },
-  methods: {},
+  methods: {
+    openSchedulePage() {
+      //TODO: Uses placholder 'sdlfkj' for screenerId
+      this.$router.push('/interview/schedule/sdlfkj');
+    },
+  },
 };
 </script>
 
