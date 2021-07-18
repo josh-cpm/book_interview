@@ -1,7 +1,5 @@
 <template>
   <div class="screener-flow-container">
-    <p>The current question is {{ currentQuestion }}</p>
-    <p>The current participantStatus is {{ participantStatus }}</p>
     <component
       :is="showComponent"
       :currentQuestion="currentQuestion"
