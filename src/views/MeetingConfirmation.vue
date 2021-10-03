@@ -33,7 +33,6 @@
           Can't attend?
         </div>
         <PrimaryCta
-          class="cta"
           buttonValue="Cancel Meeting"
           :loadingState="false"
           @click="cancelMeetingCall"
@@ -169,11 +168,11 @@ export default {
   margin-bottom: 2rem;
 }
 
-.cta {
-  margin: 0.5rem 0;
-}
-
 li {
   margin-bottom: 0.3rem;
+}
+
+ul {
+  margin: 0;
 }
 </style>
