@@ -5,7 +5,6 @@
     </div>
     <div v-if="!meetingCanceled && !meetingDetails">
       <MeetingLoading></MeetingLoading>
-      {{ meetingDetails }}
     </div>
     <div
       class="meeting-page__meeting-details"
@@ -47,7 +46,7 @@
         <ul>
           <li>{{ participantInfo.name }}</li>
           <li>{{ participantInfo.email }}</li>
-          <li>{{ participantInfo.phoneNumber }}</li>
+          <li>{{ participantInfo.phone }}</li>
         </ul>
       </div>
     </div>
@@ -65,6 +64,7 @@ import {
   formatDistanceToNow,
   differenceInMinutes,
 } from 'date-fns';
+import store from '@/modules/store';
 
 export default {
   name: 'MeetingConfirmation',
@@ -75,32 +75,36 @@ export default {
   },
   data() {
     return {
-      participantInfo: {},
-      meetingDetails: {},
       refresher: 0,
       meetingCanceled: false,
     };
   },
   computed: {
+    meetingDetails() {
+      return store.meetingDetails;
+    },
+    participantInfo() {
+      return store.participantDetails;
+    },
     meetingTime() {
-      const date = parseJSON(this.meetingDetails.time);
+      const date = parseJSON(store.meetingDetails.timeStamp);
       return format(date, 'p');
     },
     meetingDate() {
-      const date = parseJSON(this.meetingDetails.time);
+      const date = parseJSON(store.meetingDetails.timeStamp);
       console.log(date);
       return format(date, 'MMMM d');
     },
     meetingCountdown() {
       this.refresher;
-      const date = parseJSON(this.meetingDetails.time);
+      const date = parseJSON(store.meetingDetails.timeStamp);
       return formatDistanceToNow(date, {
         addSuffix: true,
       });
     },
     joinCtaIsInactive() {
       this.refresher;
-      const date = parseJSON(this.meetingDetails.time);
+      const date = parseJSON(store.meetingDetails.timeStamp);
       const minLeft = differenceInMinutes(date, new Date());
       if (minLeft <= 100) {
         return false;
@@ -117,10 +121,10 @@ export default {
       try {
         const { interviewUuid } = this.$route.params;
         const response = await getMeeting(interviewUuid);
-        console.log(response.data);
+        // console.log(response.data);
         if (response.status === 200) {
-          this.meetingDetails = response.data.meetingDetails;
-          this.participantInfo = response.data.participantInfo;
+          // this.meetingDetails = response.data.meetingDetails;
+          // this.participantInfo = response.data.participantInfo;
         }
       } catch (e) {
         console.log(e);
@@ -142,6 +146,9 @@ export default {
   created() {
     this.getDetails();
     this.refresh();
+    console.log(store);
+    console.log('Selected timeslot is...');
+    console.log(store.selectedTimeslot);
   },
 };
 </script>

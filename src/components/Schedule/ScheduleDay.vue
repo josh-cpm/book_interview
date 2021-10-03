@@ -24,6 +24,7 @@ export default {
       store.selectedTimeslot = e.buttonValue.id;
       store.meetingDetails.displayDate = e.buttonValue.displayDate;
       store.meetingDetails.displayTime = e.buttonValue.displayTime;
+      store.meetingDetails.timeStamp = e.buttonValue.time;
     },
   },
 };
