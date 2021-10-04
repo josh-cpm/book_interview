@@ -3,13 +3,12 @@
     <div v-if="meetingCanceled">
       <MeetingCanceled></MeetingCanceled>
     </div>
-    <div v-if="!meetingCanceled && !meetingDetails">
+    <div v-if="!meetingCanceled && !meetingDate">
       <MeetingLoading></MeetingLoading>
-      {{ meetingDetails }}
     </div>
     <div
       class="meeting-page__meeting-details"
-      v-if="meetingDetails && !meetingCanceled"
+      v-if="meetingDate && !meetingCanceled"
     >
       <div class="section">
         <h2>Meeting Scheduled!</h2>
@@ -24,7 +23,7 @@
         <div class="section-title">Starts {{ meetingCountdown }}</div>
         <a :href="joinCtaIsInactive ? '' : meetingDetails.linkToJoin">
           <PrimaryCta
-            buttonText="Join Meeting"
+            buttonValue="Join Meeting"
             :inactiveState="joinCtaIsInactive"
           ></PrimaryCta>
         </a>
@@ -34,8 +33,7 @@
           Can't attend?
         </div>
         <PrimaryCta
-          class="cta"
-          buttonText="Cancel Meeting"
+          buttonValue="Cancel Meeting"
           :loadingState="false"
           @click="cancelMeetingCall"
         ></PrimaryCta>
@@ -47,7 +45,7 @@
         <ul>
           <li>{{ participantInfo.name }}</li>
           <li>{{ participantInfo.email }}</li>
-          <li>{{ participantInfo.phoneNumber }}</li>
+          <li>{{ participantInfo.phone }}</li>
         </ul>
       </div>
     </div>
@@ -65,6 +63,7 @@ import {
   formatDistanceToNow,
   differenceInMinutes,
 } from 'date-fns';
+import store from '@/modules/store';
 
 export default {
   name: 'MeetingConfirmation',
@@ -75,32 +74,48 @@ export default {
   },
   data() {
     return {
-      participantInfo: {},
-      meetingDetails: {},
       refresher: 0,
       meetingCanceled: false,
     };
   },
   computed: {
+    meetingDetails() {
+      return store.meetingDetails;
+    },
+    participantInfo() {
+      return store.participantDetails;
+    },
     meetingTime() {
-      const date = parseJSON(this.meetingDetails.time);
-      return format(date, 'p');
+      try {
+        const date = parseJSON(store.meetingDetails.timeStamp);
+        return format(date, 'p');
+      } catch (error) {
+        return '';
+      }
     },
     meetingDate() {
-      const date = parseJSON(this.meetingDetails.time);
-      console.log(date);
-      return format(date, 'MMMM d');
+      try {
+        const date = parseJSON(store.meetingDetails.timeStamp);
+        console.log(date);
+        return format(date, 'MMMM d');
+      } catch (error) {
+        return '';
+      }
     },
     meetingCountdown() {
-      this.refresher;
-      const date = parseJSON(this.meetingDetails.time);
-      return formatDistanceToNow(date, {
-        addSuffix: true,
-      });
+      try {
+        this.refresher;
+        const date = parseJSON(store.meetingDetails.timeStamp);
+        return formatDistanceToNow(date, {
+          addSuffix: true,
+        });
+      } catch (error) {
+        return '';
+      }
     },
     joinCtaIsInactive() {
       this.refresher;
-      const date = parseJSON(this.meetingDetails.time);
+      const date = parseJSON(store.meetingDetails.timeStamp);
       const minLeft = differenceInMinutes(date, new Date());
       if (minLeft <= 100) {
         return false;
@@ -117,10 +132,10 @@ export default {
       try {
         const { interviewUuid } = this.$route.params;
         const response = await getMeeting(interviewUuid);
-        console.log(response.data);
+        // console.log(response.data);
         if (response.status === 200) {
-          this.meetingDetails = response.data.meetingDetails;
-          this.participantInfo = response.data.participantInfo;
+          // this.meetingDetails = response.data.meetingDetails;
+          // this.participantInfo = response.data.participantInfo;
         }
       } catch (e) {
         console.log(e);
@@ -142,6 +157,9 @@ export default {
   created() {
     this.getDetails();
     this.refresh();
+    console.log(store);
+    console.log('Selected timeslot is...');
+    console.log(store.selectedTimeslot);
   },
 };
 </script>
@@ -162,11 +180,11 @@ export default {
   margin-bottom: 2rem;
 }
 
-.cta {
-  margin: 0.5rem 0;
-}
-
 li {
   margin-bottom: 0.3rem;
+}
+
+ul {
+  margin: 0;
 }
 </style>

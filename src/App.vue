@@ -1,8 +1,10 @@
 <template>
-  <div class="main-app-container">
-    <Nav></Nav>
-    <Main></Main>
-    <Footer></Footer>
+  <div class="app-container-overflow">
+    <div class="main-app-container">
+      <Nav></Nav>
+      <Main></Main>
+      <Footer></Footer>
+    </div>
   </div>
 </template>
 
@@ -10,8 +12,6 @@
 import Nav from './components/Nav';
 import Main from './components/Main';
 import Footer from './components/Footer';
-// import store from './modules/store';
-// import { watch } from 'vue';
 
 export default {
   name: 'App',
@@ -20,18 +20,6 @@ export default {
     Main,
     Footer,
   },
-  created() {
-    // console.log('watching');
-    // watch([store], (newStore, oldStore) => {
-    //   console.log('STORE UPDATED');
-    //   console.log('Old Store');
-    //   console.log(oldStore[0]);
-    //   console.log('New Store');
-    //   console.log(newStore[0]);
-    // });
-  },
-
-  //provide/inject
 };
 </script>
 
@@ -64,5 +52,10 @@ body {
 h2 {
   font-weight: normal;
   margin: 0;
+}
+
+.main-app-container {
+  max-width: 550px;
+  margin: auto;
 }
 </style>
