@@ -3,12 +3,12 @@
     <div v-if="meetingCanceled">
       <MeetingCanceled></MeetingCanceled>
     </div>
-    <div v-if="!meetingCanceled && !meetingDetails">
+    <div v-if="!meetingCanceled && !meetingDate">
       <MeetingLoading></MeetingLoading>
     </div>
     <div
       class="meeting-page__meeting-details"
-      v-if="meetingDetails && !meetingCanceled"
+      v-if="meetingDate && !meetingCanceled"
     >
       <div class="section">
         <h2>Meeting Scheduled!</h2>
@@ -86,20 +86,32 @@ export default {
       return store.participantDetails;
     },
     meetingTime() {
-      const date = parseJSON(store.meetingDetails.timeStamp);
-      return format(date, 'p');
+      try {
+        const date = parseJSON(store.meetingDetails.timeStamp);
+        return format(date, 'p');
+      } catch (error) {
+        return '';
+      }
     },
     meetingDate() {
-      const date = parseJSON(store.meetingDetails.timeStamp);
-      console.log(date);
-      return format(date, 'MMMM d');
+      try {
+        const date = parseJSON(store.meetingDetails.timeStamp);
+        console.log(date);
+        return format(date, 'MMMM d');
+      } catch (error) {
+        return '';
+      }
     },
     meetingCountdown() {
-      this.refresher;
-      const date = parseJSON(store.meetingDetails.timeStamp);
-      return formatDistanceToNow(date, {
-        addSuffix: true,
-      });
+      try {
+        this.refresher;
+        const date = parseJSON(store.meetingDetails.timeStamp);
+        return formatDistanceToNow(date, {
+          addSuffix: true,
+        });
+      } catch (error) {
+        return '';
+      }
     },
     joinCtaIsInactive() {
       this.refresher;
