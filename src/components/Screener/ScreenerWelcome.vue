@@ -60,12 +60,16 @@ export default {
 <style scoped>
 .header-container,
 .cta-container {
-  margin: var(--margin-sides);
+  margin: 0 var(--margin-sides);
   margin-bottom: 2rem;
 }
 
 p,
 h1 {
   margin-bottom: 1rem;
+}
+
+h1 {
+  margin-top: 0;
 }
 </style>
