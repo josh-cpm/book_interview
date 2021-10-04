@@ -84,6 +84,7 @@ export default {
       store.participantDetails.phone = e.target.value;
     },
     scheduleMeeting() {
+      //TODO: validate for missing data, or throw an error state thing
       if (this.errorState) {
         return;
       } else {
