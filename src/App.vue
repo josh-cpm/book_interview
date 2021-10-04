@@ -1,8 +1,10 @@
 <template>
-  <div class="main-app-container">
-    <Nav></Nav>
-    <Main></Main>
-    <Footer></Footer>
+  <div class="app-container-overflow">
+    <div class="main-app-container">
+      <Nav></Nav>
+      <Main></Main>
+      <Footer></Footer>
+    </div>
   </div>
 </template>
 
@@ -50,5 +52,10 @@ body {
 h2 {
   font-weight: normal;
   margin: 0;
+}
+
+.main-app-container {
+  max-width: 550px;
+  margin: auto;
 }
 </style>

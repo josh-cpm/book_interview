@@ -21,7 +21,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 12rem;
+  min-height: 8rem;
 }
 
 .footer-content {
