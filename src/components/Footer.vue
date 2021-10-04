@@ -35,7 +35,7 @@ export default {
 }
 
 .footer-content__title {
-  color: var(--color-primary);
+  color: var(--color-text);
 }
 
 ul {
@@ -53,7 +53,7 @@ li {
 a,
 li {
   text-decoration: none;
-  color: var(--color-primary);
+  color: var(--color-text);
   font-size: var(--font-size-small);
 }
 
